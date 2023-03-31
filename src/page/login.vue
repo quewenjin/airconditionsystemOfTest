@@ -8,12 +8,12 @@
         <div class="logintext">
         </div>
         <div class="formdata">
-          <el-form ref="form" :model="form" :rules="rules">
-            <el-form-item prop="username">
-              <el-input v-model="form.username" clearable placeholder="请输入账号"></el-input>
+          <el-form ref="loginForm" :model="loginForm" :rules="rules">
+            <el-form-item prop="userName">
+              <el-input v-model="loginForm.userName" clearable placeholder="请输入账号"></el-input>
             </el-form-item>
-            <el-form-item prop="password">
-              <el-input v-model="form.password" clearable placeholder="请输入密码" show-password></el-input>
+            <el-form-item prop="userPassword">
+              <el-input v-model="loginForm.userPassword" clearable placeholder="请输入密码" show-password></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -35,71 +35,68 @@
 </template>
 
 <script>
-// import { login } from "@/api/login";
-// import { setToken } from "@/request/auth";
+
+import { mapMutations } from 'vuex'
+import { userLogin } from '@/api/api.js'
 
 export default {
-  name: "Login",
   data() {
     return {
-      form: {
-        password: "",
-        username: "",
+      loginForm: {
+        userName: 'test',
+        userPassword: '123456'
       },
       checked: false,
       rules: {
-        username: [
+        userName: [
           { required: true, message: "请输入用户名", trigger: "blur" },
           { max: 16, message: "不能大于16个字符", trigger: "blur" },
         ],
-        password: [
+        userPassword: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { max: 16, message: "不能大于16个字符", trigger: "blur" },
         ],
       },
     };
   },
-  mounted() {
-    if (localStorage.getItem("news")) {
-      this.form = JSON.parse(localStorage.getItem("news"))
-      this.checked = true
-    }
-  },
   methods: {
-    login(form) {
-      this.$refs[form].validate((valid) => {
-        if (valid) {
-          login(this.form)
-            .then((res) => {
-              if (res.code === 200) {
-                setToken(res.data.token);
-                localStorage.setItem("USERNAME", res.data.username);
-                this.$message({
-                  message: "登录成功",
-                  type: "success",
-                  showClose: true,
-                });
-                this.$router.replace("/");
-              } else {
-                this.$message({
-                  message: "账户名或密码错误",
-                  type: "error",
-                  showClose: true,
-                });
-              }
-            })
-            .catch((err) => {
-              this.$message({
-                message: "账户名或密码错误",
-                type: "error",
-                showClose: true,
-              });
-            });
-        } else {
-          return false;
-        }
-      });
+    ...mapMutations(['$_setStorage']),
+    // 登录
+    login() {
+      let _this = this;
+      if (this.loginForm.userName === '' || this.loginForm.userPassword === '') {
+        alert('账号或密码不能为空');
+      } else {
+        userLogin(
+          JSON.stringify(_this.loginForm)
+        ).then(res => {
+          console.log(res)
+          if (res.data.code == 200) {
+            _this.$_setStorage(res.data.token);
+            _this.$router.push('/center/home');
+            alert('登录成功')
+          } else {
+            alert('账号或密码错误');
+          }
+        })
+        // 珏崇哥说这样不够优雅，留个样本
+        // this.$http({
+        //   method: 'post',
+        //   url: 'http://82.157.150.120:8081/user/login',
+        //   data: _this.loginForm
+        // }).then(res => {
+        //   console.log(res)
+        //   if (res.data.code == 200) {
+        //     _this.$_setStorage(res.data.token);
+        //     _this.$router.push('/center/home');
+        //     alert('登录成功')
+        //   } else {
+        //     alert('账号或密码错误');
+        //   }
+        // })
+      }
     },
+    // 记住密码
     remenber(data) {
       this.checked = data
       if (this.checked) {
@@ -108,6 +105,7 @@ export default {
         localStorage.removeItem("news")
       }
     },
+    // 忘记密码
     forgetpas() {
       this.$message({
         type: "info",

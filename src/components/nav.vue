@@ -2,20 +2,30 @@
   <el-aside width="200px">
     <el-row class="tac">
       <el-col>
-        <el-menu default-active="/home" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" router="true">
-          <el-menu-item index="/home">
+        <el-menu default-active="/center/home" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" router="true">
+          <el-menu-item index="/center/home">
             <i class="el-icon-menu"></i>
             <span slot="title">后台中心</span>
           </el-menu-item>
 
-          <el-menu-item index="/order">
+          <el-menu-item index="/center/order">
             <i class="el-icon-s-order"></i>
-            <span slot="title">订单列表</span>
+            <span slot="title">命令控制</span>
           </el-menu-item>
 
-          <el-menu-item index="/room">
+          <el-menu-item index="/center/room">
             <i class="el-icon-s-home"></i>
-            <span slot="title">机房列表</span>
+            <span slot="title">机房查询</span>
+          </el-menu-item>
+
+          <el-menu-item index="/center/air">
+            <i class="el-icon-s-promotion"></i>
+            <span slot="title">空调查询</span>
+          </el-menu-item>
+
+          <el-menu-item index="/center/echart">
+            <i class="el-icon-s-data"></i>
+            <span slot="title">Echart</span>
           </el-menu-item>
           <!-- <el-submenu index="4">
             <template slot="title">
