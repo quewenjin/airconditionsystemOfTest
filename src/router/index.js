@@ -5,7 +5,7 @@ import Home from '@/page/home'
 import Order from '@/page/order'
 import Room from '@/page/room'
 import Air from '@/page/air'
-import Echart from '@/page/echart'
+import Echarts from '@/page/echarts'
 import Login from '@/page/login'
 
 Vue.use(VueRouter)
@@ -35,9 +35,9 @@ const router = new VueRouter({
             name: 'Air',
             component: Air
         }, {
-            path: 'echart',
-            name: 'Echart',
-            component: Echart
+            path: 'echarts',
+            name: 'Echarts',
+            component: Echarts
         }, ]
     }, {
         path: '/login',

@@ -2,7 +2,7 @@
   <el-aside width="200px">
     <el-row class="tac">
       <el-col>
-        <el-menu default-active="/center/home" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" router="true">
+        <el-menu default-active="/center/home" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" router>
           <el-menu-item index="/center/home">
             <i class="el-icon-menu"></i>
             <span slot="title">后台中心</span>
@@ -23,9 +23,9 @@
             <span slot="title">空调查询</span>
           </el-menu-item>
 
-          <el-menu-item index="/center/echart">
+          <el-menu-item index="/center/echarts">
             <i class="el-icon-s-data"></i>
-            <span slot="title">Echart</span>
+            <span slot="title">Echarts</span>
           </el-menu-item>
           <!-- <el-submenu index="4">
             <template slot="title">

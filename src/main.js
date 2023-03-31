@@ -6,10 +6,15 @@ import axios from 'axios'
 import store from './store' //导入store
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import * as echarts from 'echarts';
+
+import JsonViewer from 'vue-json-viewer'
+Vue.use(JsonViewer)
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.prototype.$echarts = echarts //需要挂载到Vue原型上
 
 // 导航守卫
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
