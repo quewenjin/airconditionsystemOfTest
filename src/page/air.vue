@@ -15,7 +15,8 @@
     <div class="jsonTest">
       <div>
         <!-- <json-viewer :value="[jsonTest.data[jsonTest.data.length].airId]"></json-viewer>for(var p in packJson) -->
-        <json-viewer :value="[jsonTest.data[0, jsonTest.airCnt - 1].airId]"></json-viewer>
+        <!-- <json-viewer :value="[jsonTest.data[0, jsonTest.airCnt - 1].airId]"></json-viewer> -->
+        <json-viewer :value="[jsonTest]"></json-viewer>
       </div>
     </div>
 

@@ -44,9 +44,6 @@
         </div>
 
         <!-- echarts组件 -->
-        <div class="EchartsTest">
-            <div id="test" style="width: 500px;height:400px;"></div>
-        </div>
 
         <div class="Echarts">
             <div id="lineOfTemperature" style="width: 100%;height:600px;"></div>
@@ -70,236 +67,32 @@ export default {
                 frontTime: '',
                 backTime: ''
             },
+            theAirIdList: [],
+            increaseNum: [],
+            theAirTemperatureData: [],
+            chartOfTemperature: this.$echarts,
+            chartOfWet: this.$echarts,
+            chartOfRsi: this.$echarts,
             jsonTest: {
                 "code": 200,
                 "data": [
                     {
-                        "averageTemperature": 25.272727272727273,
-                        "averageWet": 29.099999999999998,
-                        "averageRsi": 219.1,
+                        "averageTemperature": 0,
+                        "averageWet": 0,
+                        "averageRsi": 0,
                         "details": [
                             {
-                                "amWet": 23.5,
-                                "amTime": 1672502400000,
-                                "amRsi": 213.5,
-                                "amTemperature": 23.9
-                            },
-                            {
-                                "amWet": 33.6,
-                                "amTime": 1672502460000,
-                                "amRsi": 223.6,
-                                "amTemperature": 26.4
-                            },
-                            {
-                                "amWet": 35.6,
-                                "amTime": 1672502520000,
-                                "amRsi": 225.6,
-                                "amTemperature": 26.9
-                            },
-                            {
-                                "amWet": 34.9,
-                                "amTime": 1672502580000,
-                                "amRsi": 224.9,
-                                "amTemperature": 26.7
-                            },
-                            {
-                                "amWet": 39.2,
-                                "amTime": 1672502640000,
-                                "amRsi": 229.2,
-                                "amTemperature": 27.8
-                            },
-                            {
-                                "amWet": 22.5,
-                                "amTime": 1672502700000,
-                                "amRsi": 212.5,
-                                "amTemperature": 23.6
-                            },
-                            {
-                                "amWet": 39.5,
-                                "amTime": 1672502760000,
-                                "amRsi": 229.5,
-                                "amTemperature": 27.9
-                            },
-                            {
-                                "amWet": 21.7,
-                                "amTime": 1672502820000,
-                                "amRsi": 211.7,
-                                "amTemperature": 23.4
-                            },
-                            {
-                                "amWet": 24.7,
-                                "amTime": 1672502880000,
-                                "amRsi": 214.7,
-                                "amTemperature": 24.2
-                            },
-                            {
-                                "amWet": 20.9,
-                                "amTime": 1672502940000,
-                                "amRsi": 210.9,
-                                "amTemperature": 23.2
-                            },
-                            {
-                                "amWet": 24.0,
-                                "amTime": 1672503000000,
-                                "amRsi": 214.0,
-                                "amTemperature": 24.0
+                                "amWet": 0,
+                                "amTime": 0,
+                                "amRsi": 0,
+                                "amTemperature": 0
                             }
                         ],
-                        "airId": "10001",
-                        "recordCnt": 11
-                    },
-                    {
-                        "averageTemperature": 24.763636363636362,
-                        "averageWet": 27.05454545454546,
-                        "averageRsi": 217.0545454545454,
-                        "details": [
-                            {
-                                "amWet": 23.4,
-                                "amTime": 1672502400000,
-                                "amRsi": 213.4,
-                                "amTemperature": 23.9
-                            },
-                            {
-                                "amWet": 21.2,
-                                "amTime": 1672502460000,
-                                "amRsi": 211.2,
-                                "amTemperature": 23.3
-                            },
-                            {
-                                "amWet": 21.6,
-                                "amTime": 1672502520000,
-                                "amRsi": 211.6,
-                                "amTemperature": 23.4
-                            },
-                            {
-                                "amWet": 21.9,
-                                "amTime": 1672502580000,
-                                "amRsi": 211.9,
-                                "amTemperature": 23.5
-                            },
-                            {
-                                "amWet": 29.0,
-                                "amTime": 1672502640000,
-                                "amRsi": 219.0,
-                                "amTemperature": 25.2
-                            },
-                            {
-                                "amWet": 22.8,
-                                "amTime": 1672502700000,
-                                "amRsi": 212.8,
-                                "amTemperature": 23.7
-                            },
-                            {
-                                "amWet": 21.8,
-                                "amTime": 1672502760000,
-                                "amRsi": 211.8,
-                                "amTemperature": 23.4
-                            },
-                            {
-                                "amWet": 30.6,
-                                "amTime": 1672502820000,
-                                "amRsi": 220.6,
-                                "amTemperature": 25.7
-                            },
-                            {
-                                "amWet": 29.0,
-                                "amTime": 1672502880000,
-                                "amRsi": 219.0,
-                                "amTemperature": 25.2
-                            },
-                            {
-                                "amWet": 38.7,
-                                "amTime": 1672502940000,
-                                "amRsi": 228.7,
-                                "amTemperature": 27.7
-                            },
-                            {
-                                "amWet": 37.6,
-                                "amTime": 1672503000000,
-                                "amRsi": 227.6,
-                                "amTemperature": 27.4
-                            }
-                        ],
-                        "airId": "10002",
-                        "recordCnt": 11
-                    },
-                    {
-                        "averageTemperature": 26.5,
-                        "averageWet": 33.96363636363637,
-                        "averageRsi": 223.9636363636364,
-                        "details": [
-                            {
-                                "amWet": 32.8,
-                                "amTime": 1672502400000,
-                                "amRsi": 222.8,
-                                "amTemperature": 26.2
-                            },
-                            {
-                                "amWet": 27.2,
-                                "amTime": 1672502460000,
-                                "amRsi": 217.2,
-                                "amTemperature": 24.8
-                            },
-                            {
-                                "amWet": 38.3,
-                                "amTime": 1672502520000,
-                                "amRsi": 228.3,
-                                "amTemperature": 27.6
-                            },
-                            {
-                                "amWet": 39.3,
-                                "amTime": 1672502580000,
-                                "amRsi": 229.3,
-                                "amTemperature": 27.8
-                            },
-                            {
-                                "amWet": 35.4,
-                                "amTime": 1672502640000,
-                                "amRsi": 225.4,
-                                "amTemperature": 26.9
-                            },
-                            {
-                                "amWet": 32.6,
-                                "amTime": 1672502700000,
-                                "amRsi": 222.6,
-                                "amTemperature": 26.2
-                            },
-                            {
-                                "amWet": 29.2,
-                                "amTime": 1672502760000,
-                                "amRsi": 219.2,
-                                "amTemperature": 25.3
-                            },
-                            {
-                                "amWet": 38.4,
-                                "amTime": 1672502820000,
-                                "amRsi": 228.4,
-                                "amTemperature": 27.6
-                            },
-                            {
-                                "amWet": 30.6,
-                                "amTime": 1672502880000,
-                                "amRsi": 220.6,
-                                "amTemperature": 25.6
-                            },
-                            {
-                                "amWet": 33.5,
-                                "amTime": 1672502940000,
-                                "amRsi": 223.5,
-                                "amTemperature": 26.4
-                            },
-                            {
-                                "amWet": 36.3,
-                                "amTime": 1672503000000,
-                                "amRsi": 226.3,
-                                "amTemperature": 27.1
-                            }
-                        ],
-                        "airId": "10003",
-                        "recordCnt": 11
+                        "airId": "0000",
+                        "recordCnt": 0
                     }
                 ],
-                "airCnt": 3
+                "airCnt": 0
             },
         }
     },
@@ -311,53 +104,55 @@ export default {
             getRoomInfo(
                 JSON.stringify(this.form)
             ).then(res => {
-                console.log(res.data)
-                // this.tableData = res.data.data
+                // console.log(res.data)
+                this.jsonTest = res.data;
+                // console.log("jsonTest111");
+                // console.log(this.jsonTest);
+                // console.log("theAirIdList111");
+                // console.log(this.theAirIdList);
+                // console.log("increaseNum111");
+                // console.log(this.increaseNum);
+                // console.log("theAirTemperatureData111");
+                // console.log(this.theAirTemperatureData);
             });
+            this.updateTheData();
+            this.myEcharts();
+            console.log("????????????")
         },
-        myEcharts() {
-            // 基于准备好的dom，初始化echarts实例
-            var myChart = this.$echarts.init(document.getElementById('test'));
-            // 指定图表的配置项和数据
-            var option = {
-                title: {
-                    text: 'ECharts 入门示例'
-                },
-                tooltip: {},
-                legend: {
-                    data: ['销量']
-                },
-                xAxis: {
-                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-                },
-                yAxis: {},
-                series: [{
-                    name: '销量',
-                    type: 'bar',
-                    data: [5, 20, 36, 10, 10, 20]
-                }]
-            };
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
-
+        updateTheData() {
             // 得到 机房ID 区分折线图曲线
-            var theAirIdList = [];
+            this.theAirIdList = [];
             for (var i = 0; i < this.jsonTest.airCnt; i++) {
-                theAirIdList.push(this.jsonTest.data[i].airId);
+                this.theAirIdList.push(this.jsonTest.data[i].airId);
             }
-            // 好像json是默认有顺序的，先不管顺序尝试处理
-            var theAirTemperatureData = [];
+            // 好像json是默认有顺序的，先不管顺序尝试处理;这是一个嵌套的二维数组
+            this.theAirTemperatureData = [];
             for (var i = 0; i < this.jsonTest.airCnt; i++) {
                 var theTemp = [];
                 for (var j = 0; j < this.jsonTest.data[i].recordCnt; j++) {
                     theTemp.push(this.jsonTest.data[i].details[j].amTemperature);
                 }
-                theAirTemperatureData.push(theTemp);
+                this.theAirTemperatureData.push(theTemp);
             }
-            console.log("theAirTemperatureData")
-            console.log(theAirTemperatureData)
-            // 温度折线图
-            var chartOfTemperature = this.$echarts.init(document.getElementById('lineOfTemperature'));
+            // 选择一个自增数组作为X轴
+            this.increaseNum = [];
+            for (var k = 1; k < this.jsonTest.data[0].recordCnt + 1; k++) {
+                this.increaseNum.push(k);
+            }
+            // 打印
+            // console.log("theAirIdList111");
+            // console.log(this.theAirIdList);
+            // console.log("increaseNum111");
+            // console.log(this.increaseNum);
+            // console.log("theAirTemperatureData111");
+            // console.log(this.theAirTemperatureData);
+        },
+        chartsInit() {
+            this.chartOfTemperature = this.$echarts.init(document.getElementById('lineOfTemperature'));
+            this.chartOfWet = this.$echarts.init(document.getElementById('lineOfWet'));
+            this.chartOfRsi = this.$echarts.init(document.getElementById('lineOfRsi'));
+        },
+        myEcharts() {
             var option1 = {
                 title: {
                     text: '温度'
@@ -367,7 +162,7 @@ export default {
                 },
                 legend: {
                     // data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-                    data: theAirIdList
+                    data: this.theAirIdList
                 },
                 grid: {
                     left: '3%',
@@ -383,54 +178,52 @@ export default {
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Thu', 'Fri', 'Sat', 'Sun']
+                    // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Thu', 'Fri', 'Sat', 'Sun']
+                    data: this.increaseNum
                 },
                 yAxis: {
                     type: 'value'
                 },
                 series: [
                     {
-                        name: theAirIdList[0],
+                        name: this.theAirIdList[0],
                         type: 'line',
-                        stack: 'Total',
+                        // stack: 'Total',
                         // data: [120, 132, 101, 134, 90, 230, 210]
-                        data: theAirTemperatureData[0]
+                        data: this.theAirTemperatureData[0]
                     },
                     {
-                        name: theAirIdList[1],
+                        name: this.theAirIdList[1],
                         type: 'line',
                         // stack: 'Total',
                         // data: [22, 18, 19, 23, 29, 30, 31]
-                        data: theAirTemperatureData[1]
+                        data: this.theAirTemperatureData[1]
                     },
                     {
-                        name: theAirIdList[2],
+                        name: this.theAirIdList[2],
                         type: 'line',
                         // stack: 'Total',
                         // data: [15, 23, 20, 15, 19, 33, 40]
-                        data: theAirTemperatureData[2]
+                        data: this.theAirTemperatureData[2]
                     }
                 ]
             };
-            chartOfTemperature.setOption(option1);
+            this.chartOfTemperature.setOption(option1, true, false, false);
 
-            // 湿度折线图
-            var chartOfWet = this.$echarts.init(document.getElementById('lineOfWet'));
             var option2 = {
 
             };
-            chartOfWet.setOption(option2);
+            this.chartOfWet.setOption(option2, true, false, false);
 
-            // 电平折线图
-            var chartOfRsi = this.$echarts.init(document.getElementById('lineOfRsi'));
             var option3 = {
 
             };
-            chartOfRsi.setOption(option3);
-
+            this.chartOfRsi.setOption(option3, true, false, false);
         }
     },
     mounted() {
+        this.chartsInit();
+        this.updateTheData();
         this.myEcharts();
     }
 }
