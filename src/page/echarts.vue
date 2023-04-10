@@ -70,9 +70,9 @@ export default {
             theAirIdList: [],
             increaseNum: [],
             theAirTemperatureData: [],
-            chartOfTemperature: this.$echarts,
-            chartOfWet: this.$echarts,
-            chartOfRsi: this.$echarts,
+            chartOfTemperature: '',
+            chartOfWet: '',
+            chartOfRsi: '',
             jsonTest: {
                 "code": 200,
                 "data": [
@@ -117,7 +117,6 @@ export default {
             });
             this.updateTheData();
             this.myEcharts();
-            console.log("????????????")
         },
         updateTheData() {
             // 得到 机房ID 区分折线图曲线
@@ -223,9 +222,7 @@ export default {
     },
     mounted() {
         this.chartsInit();
-        this.updateTheData();
-        this.myEcharts();
-    }
+    },
 }
 </script>
   
