@@ -46,11 +46,11 @@
         <!-- echarts组件 -->
 
         <div class="Echarts">
-            <div id="lineOfTemperature" style="width: 100%;height:600px;"></div>
+            <div id="lineOfTemperature" style="width: 100%;height:300px;"></div>
 
-            <div id="lineOfWet" style="width:  100%;height:600px;"></div>
+            <div id="lineOfWet" style="width:  100%;height:300px;"></div>
 
-            <div id="lineOfRsi" style="width:  100%;height:600px;"></div>
+            <div id="lineOfRsi" style="width:  100%;height:300px;"></div>
         </div>
     </div>
 </template>
@@ -67,14 +67,22 @@ export default {
                 frontTime: '',
                 backTime: ''
             },
-            theAirIdList: [],
-            increaseNum: [],
-            theAirTemperatureData: [],
+            theAirIdList: [],   // airId
+            increaseNum: [],    // 自增
+            // 单个air的数据
+            theAirTemperatureData: [], 
+            theAirWetData: [],
+            theAirRsiData: [],
+            // series数据
+            seriesOfTemperature: [],    
+            seriesOfWet: [],
+            seriesOfRsi: [],
+            // echarts对象
             chartOfTemperature: '',
             chartOfWet: '',
             chartOfRsi: '',
-            jsonTest: {
-                "code": 200,
+            jsonTest: { // 用于生成初始空白表格的数据
+                "code": 666,
                 "data": [
                     {
                         "averageTemperature": 0,
@@ -104,54 +112,76 @@ export default {
             getRoomInfo(
                 JSON.stringify(this.form)
             ).then(res => {
-                // console.log(res.data)
                 this.jsonTest = res.data;
-                // console.log("jsonTest111");
-                // console.log(this.jsonTest);
-                // console.log("theAirIdList111");
-                // console.log(this.theAirIdList);
-                // console.log("increaseNum111");
-                // console.log(this.increaseNum);
-                // console.log("theAirTemperatureData111");
-                // console.log(this.theAirTemperatureData);
+                this.updateTheData();
+                this.myEcharts();
             });
-            this.updateTheData();
-            this.myEcharts();
         },
         updateTheData() {
-            // 得到 机房ID 区分折线图曲线
-            this.theAirIdList = [];
-            for (var i = 0; i < this.jsonTest.airCnt; i++) {
+            // 更新数据得到机房ID对应的区分折线图曲线所需的信息
+            this.theAirIdList = []; // 空调ID
+            for (let i = 0; i < this.jsonTest.airCnt; i++) {
                 this.theAirIdList.push(this.jsonTest.data[i].airId);
             }
             // 好像json是默认有顺序的，先不管顺序尝试处理;这是一个嵌套的二维数组
-            this.theAirTemperatureData = [];
-            for (var i = 0; i < this.jsonTest.airCnt; i++) {
-                var theTemp = [];
-                for (var j = 0; j < this.jsonTest.data[i].recordCnt; j++) {
+            this.theAirTemperatureData = [];    // 温度数据
+            for (let i = 0; i < this.jsonTest.airCnt; i++) {
+                let theTemp = [];
+                for (let j = 0; j < this.jsonTest.data[i].recordCnt; j++) {
                     theTemp.push(this.jsonTest.data[i].details[j].amTemperature);
                 }
                 this.theAirTemperatureData.push(theTemp);
             }
-            // 选择一个自增数组作为X轴
-            this.increaseNum = [];
-            for (var k = 1; k < this.jsonTest.data[0].recordCnt + 1; k++) {
+            this.theAirWetData = [];    // 湿度数据
+            for (let i = 0; i < this.jsonTest.airCnt; i++) {
+                let theTemp = [];
+                for (let j = 0; j < this.jsonTest.data[i].recordCnt; j++) {
+                    theTemp.push(this.jsonTest.data[i].details[j].amWet);
+                }
+                this.theAirWetData.push(theTemp);
+            }
+            this.theAirRsiData = [];    // 电平数据
+            for (let i = 0; i < this.jsonTest.airCnt; i++) {
+                let theTemp = [];
+                for (let j = 0; j < this.jsonTest.data[i].recordCnt; j++) {
+                    theTemp.push(this.jsonTest.data[i].details[j].amRsi);
+                }
+                this.theAirRsiData.push(theTemp);
+            }
+            this.increaseNum = [];  // 选择一个自增数组作为X轴
+            for (let k = 1; k < this.jsonTest.data[0].recordCnt + 1; k++) {
                 this.increaseNum.push(k);
             }
-            // 打印
-            // console.log("theAirIdList111");
-            // console.log(this.theAirIdList);
-            // console.log("increaseNum111");
-            // console.log(this.increaseNum);
-            // console.log("theAirTemperatureData111");
-            // console.log(this.theAirTemperatureData);
+            // 整理series
+            for (let q = 0; q < this.jsonTest.airCnt; q++) {    // 温度数据
+                this.seriesOfTemperature.push({
+                    name: this.theAirIdList[q],
+                    type: 'line',
+                    data: this.theAirTemperatureData[q]
+                });
+            }
+            for (let r = 0; r < this.jsonTest.airCnt; r++) {    // 湿度数据
+                this.seriesOfWet.push({
+                    name: this.theAirIdList[r],
+                    type: 'line',
+                    data: this.theAirWetData[r]
+                });
+            }
+            for (let s = 0; s < this.jsonTest.airCnt; s++) {    // 电平数据
+                this.seriesOfRsi.push({
+                    name: this.theAirIdList[s],
+                    type: 'line',
+                    data: this.theAirRsiData[s]
+                });
+            }
         },
-        chartsInit() {
+        chartsInit() {  // echarts对象初始化
             this.chartOfTemperature = this.$echarts.init(document.getElementById('lineOfTemperature'));
             this.chartOfWet = this.$echarts.init(document.getElementById('lineOfWet'));
             this.chartOfRsi = this.$echarts.init(document.getElementById('lineOfRsi'));
         },
         myEcharts() {
+            // 温度折线图
             var option1 = {
                 title: {
                     text: '温度'
@@ -160,7 +190,6 @@ export default {
                     trigger: 'axis'
                 },
                 legend: {
-                    // data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
                     data: this.theAirIdList
                 },
                 grid: {
@@ -177,51 +206,96 @@ export default {
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
-                    // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Thu', 'Fri', 'Sat', 'Sun']
                     data: this.increaseNum
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    max: 30.0,
+                    min: 21.0,
+                    interval: 3.0
                 },
-                series: [
-                    {
-                        name: this.theAirIdList[0],
-                        type: 'line',
-                        // stack: 'Total',
-                        // data: [120, 132, 101, 134, 90, 230, 210]
-                        data: this.theAirTemperatureData[0]
-                    },
-                    {
-                        name: this.theAirIdList[1],
-                        type: 'line',
-                        // stack: 'Total',
-                        // data: [22, 18, 19, 23, 29, 30, 31]
-                        data: this.theAirTemperatureData[1]
-                    },
-                    {
-                        name: this.theAirIdList[2],
-                        type: 'line',
-                        // stack: 'Total',
-                        // data: [15, 23, 20, 15, 19, 33, 40]
-                        data: this.theAirTemperatureData[2]
-                    }
-                ]
+                series: this.seriesOfTemperature
             };
             this.chartOfTemperature.setOption(option1, true, false, false);
-
+            // 湿度折线图
             var option2 = {
-
+                title: {
+                    text: '湿度'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: this.theAirIdList
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: this.increaseNum
+                },
+                yAxis: {
+                    type: 'value',
+                    max: 100.0,
+                    min: 0.0,
+                    interval: 20
+                },
+                series: this.seriesOfWet
             };
             this.chartOfWet.setOption(option2, true, false, false);
 
+            // 电平折线图
             var option3 = {
-
+                title: {
+                    text: '电平'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: this.theAirIdList
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: this.increaseNum
+                },
+                yAxis: {
+                    type: 'value',
+                    max: 240.0,
+                    min: 200.0,
+                    interval: 10.0
+                },
+                series: this.seriesOfRsi
             };
             this.chartOfRsi.setOption(option3, true, false, false);
         }
     },
     mounted() {
         this.chartsInit();
+        this.updateTheData();
+        this.myEcharts();
     },
 }
 </script>
@@ -240,11 +314,7 @@ export default {
     margin-top: 30px;
 }
 
-.EchartsTest {
-    margin-top: 60px;
-}
-
 .Echarts {
-    margin-top: 60px;
+    margin-top: 20px;
 }
 </style>
