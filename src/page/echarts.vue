@@ -153,6 +153,7 @@ export default {
                 this.increaseNum.push(k);
             }
             // 整理series
+            this.seriesOfTemperature = [];
             for (let q = 0; q < this.jsonTest.airCnt; q++) {    // 温度数据
                 this.seriesOfTemperature.push({
                     name: this.theAirIdList[q],
@@ -160,6 +161,7 @@ export default {
                     data: this.theAirTemperatureData[q]
                 });
             }
+            this.seriesOfWet = [];
             for (let r = 0; r < this.jsonTest.airCnt; r++) {    // 湿度数据
                 this.seriesOfWet.push({
                     name: this.theAirIdList[r],
@@ -167,6 +169,7 @@ export default {
                     data: this.theAirWetData[r]
                 });
             }
+            this.seriesOfRsi = [];
             for (let s = 0; s < this.jsonTest.airCnt; s++) {    // 电平数据
                 this.seriesOfRsi.push({
                     name: this.theAirIdList[s],
