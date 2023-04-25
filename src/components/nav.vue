@@ -27,6 +27,11 @@
             <i class="el-icon-s-data"></i>
             <span slot="title">Echarts</span>
           </el-menu-item>
+
+          <el-menu-item index="/center/sqltest">
+            <i class="el-icon-s-data"></i>
+            <span slot="title">SQL生成</span>
+          </el-menu-item>
           <!-- <el-submenu index="4">
             <template slot="title">
               <i class="el-icon-location"></i>

@@ -7,6 +7,7 @@ import Room from '@/page/room'
 import Air from '@/page/air'
 import Echarts from '@/page/echarts'
 import Login from '@/page/login'
+import Sqltest from '@/page/sqltest'
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,10 @@ const router = new VueRouter({
             path: 'echarts',
             name: 'Echarts',
             component: Echarts
+        }, {
+            path: 'sqltest',
+            name: 'Sqltest',
+            component: Sqltest
         }, ]
     }, {
         path: '/login',
